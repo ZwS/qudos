@@ -1,0 +1,17 @@
+Source: qudos
+Maintainer: Anton Sudak <anton.sudak@gmail.com>
+Uploaders: Anton Sudak <anton.sudak@gmail.com>
+Section: games
+Priority: optional
+Build-Depends: debhelper (>= 7.4), libsdl1.2-dev, libvorbis-dev, libxxf86dga-dev, libxxf86vm-dev, libjpeg62-dev
+Standards-Version: 3.9.2
+Homepage: http://qudos.quakedev.com/
+
+Package: qudos
+Architecture: any
+Depends: ${misc:Depends},
+         ${shlibs:Depends}
+Provides: quake-engine, quake-engine-server
+Description: engine for iD software's Quake 2
+ QuDos is enhanced Quake 2 engine based in the great Quake 2 Icculus port.
+

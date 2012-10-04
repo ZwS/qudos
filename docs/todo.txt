@@ -1,0 +1,34 @@
+==============================================================================
+QuDos TODO list.
+==============================================================================
+
+* Fix unnedded sign differences in structures.
+* Fix byte - char differences.
+* Fix possible buffer overflow in all configstrings.
+* Add buffer size parameter to all functions that output a string.
+* Merge Com_Printf() like functions (variations) whenever possible.
+* Use enumerations instead of macros for arguments like PRINT_ALL, so PRINT_
+  prefix is not needed.
+* Avoid returning structures, unions and arrays. Use a static buffer and
+  pointers since it is better and faster.
+* Add clamp, clamp_max and clamp_min macros. Use whenever possible.
+* Organize the menu clamp code (e.g. structure with defs and loop).
+* Organize vector functions, remove macros, eliminate duplicates (put in
+  q_shared.c).
+* Add camera rotation and commands for controlling it.
+* Compile with more warnings and fix (shadowed decls, etc.).
+* Merge common QMAX - non-QMAX code in renderer.
+* Merge renderers in executable (and remove re and ri structures).
+* Search the code for FIXME and TODO words and change accordingly.
+
+==============================================================================
+QuDos FIXME list.
+==============================================================================
+
+* Ogg Vorbis play is enbaled by default, if you do a ogg_stop and later you 
+  do some changes to de renderer (vid resolutions, windowed/fullscreen), it'll
+  crash with Seg Fault.
+
+* In SDL Mode, Switching resolutions loses the joystick.
+
+==============================================================================

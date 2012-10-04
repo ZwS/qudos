@@ -1,0 +1,473 @@
+						      QuDos Engine
+						
+						http://qudos.quakedev.com
+
+						
+Based in the great Quake 2 Icculus port http://icculus.org/quake2
+
+							Version 0.40.1 (SVN)
+                                                       
+Bug fixes in menus, 3dcam, added new option to railtrail to the basic QuDos (non QMax)
+
+Uppercase folders and files in subdirs loading.
+
+Gamma ingame working in SDL GL mode.
+
+Selectable sound drivers independant, variable snd_driver , options "oss", "alsa", "sdl" and "arts" , note that arts
+ is not working at the moment.
+ 
+Selectable image distortion shader for water reflection, variable gl_reflection_shader_image , defaults to 
+ /textures/water/distortion.pcx
+ 
+Fixed a bug in shells.
+
+More DGA mouse
+
+New alsa code from Quetoo
+
+
+
+							Version 0.40
+							
+There are a bunch of updates for this release since Ale is helping in the develop of QuDos, also writting and improving 
+ the code, big thanks to him.
+
+Ok, i'll try to put all the new long list of features for this version.
+
+Bugs fixes 
+
+Re-structured the menus with a lot of options added, mostly of them. Now in three submenus
+
+ --Client side
+ --Graphics
+ --Hud
+ 
+Changes to the client:
+
+ -Mouse support in menus, with scaled, colors, alpha channel, ...
+   variables (cl_mouse_*)
+ 
+ -Flashlight is managed by the client now and supports colors, intensity, distance, no available in deathmatch.
+   variables (cl_flashlight_*) , bind a key for it in control keys customize.
+
+ -Footsteps sounds added, enabled by default, note that the footsteps sound on water and stairs are managed by the game,
+   the rest, grass, metal, floors, snow, ..., managed by the client.
+   variables (cl_footsteps*)
+
+ -New graphic display for netgraphic with image changeable support from menus, size, position on the hud, ...
+   In order the new image take effect must to be pressed the key Insert.
+   variables (netgraph*)
+
+ -Changeable conback on the fly from menus. In order the new image take effect must to be pressed the key Insert.
+   variable (cl_conback_image <pics/name_of_image>)
+   
+ -Chat mesages keep on the screen.
+   variables (cl_drawchathud 0/1)
+   
+ -Fixed a bug with timestamped messages
+ 
+ 						Q2Max specific
+   
+ -Mod types improvements started
+                                              
+ -Improved flamethrower and flames for mods such DDay, Awaken, Awaken2, WoD, LOX ...
+   Note that the flame effect can be different for the mods since they are using different game code, pics, sprites, ... 
+   variables (cl_flame*)
+   
+ -4 different teleport effect particles.
+   variables (cl_teleport_particles 0/1/2/3)
+  
+ -3 different particles effect, original, bubbles and lensflares, these different particles are present in various
+   scenes, flag trail, logout, teleport, BFG explosions, respawn items, ...
+   variables (cl_particles_type 0/1/2)
+ 
+ -Blaster/Hyper Blaster particles when underwater on request.  
+ 
+ -Improved Rail trail laser types.
+ 
+ 						Q2Max specific end
+   
+   
+ -Added location support (.locs).
+ 
+Changes to the render:
+
+  -Lens Flares / Coronas are no more dependent from the game library and also will display in all maps, 
+    no .ent files required, anyways ent files are supported yet by setting cl_ent_files to 1.
+    variables (gl_flare*)
+    
+  -Minimap, X Y hud position.
+  
+  -Under water fog, independant from global fog, there are some issues with fog when watercaustics are enabled, note
+   that these three options (global fog, underwater fog and water caustics) can be enabled at this time or not, if you are 
+   underwater with these three options enabled, the sky will not fogging.   
+  
+                                  
+
+							Version 0.33.1
+
+ -Bug fix when creating directories.
+
+ -Bug fix in water reflection, now reflect water maps trans surfaces.
+
+ -Bug fix in minimap, now the entities are properly displayed and alpha channel is working, 
+   also added option to display enemies/items as stars or little dots "gl_minimap_dot"  0/1 , 
+   stars by default.
+
+ -Added an optional score board cvar in deathmatch mode "opt_dm_scoreboard" 1 by default.
+
+ -Transparent water "cl_underwater_trans" , no available in deathmatch.
+
+ -Added a new mouse cvar for grab/ungrab ingame "in_mouse_grab"
+
+ -Deleting and repeating keys in console.
+
+ -Reworked cellshading in q2max mode.
+
+ -Added shadows alpha cvar "gl_shadows_alpha" 0-1 and stencil shadows to basic QuDos
+
+ -Fixed the gamma on QuDos basic
+
+ -Models brights, gl_shading working, on by default, at this moment 3dcam turning to trans and 
+  gl_shading are not compatible.
+
+ -Water caustics supports double valor now, gl_water_caustics 0/1/2
+
+ -Transparent menus ingame, cl_menu_alpha 0-1,  
+
+
+							
+							Version 0.33
+							
+New features added from 0.32
+
+ Bug fixes and full native FreeBSD support thanks to Ale
+ 
+ The binary reverts to be called QuDos, it's no longer used QuDosmaX
+
+Main changes to the client:
+   
+ -Rewrote the Ogg Vorbis code, now supports randomplay, playlist, song information, ... 
+   See the included Ogg readme for a better explanation, big thanks to Ale for his great work
+ 
+ -Xmms control, play with the xmms_* cvar's, requires libxmms.so, commonly from  xmms-devel package, 
+   if you get a crash when launching QuDos with xmms enabled try it launching with +set xmms_enable 0 or 
+   try making a symbolic link to libxmms.so.1
+   Not supported by FreeBSD yet.
+ 
+ -Compressed zip files support, *.pk3 
+  You can remove the old QuDos.pak and QuDos_pak2.pak, the way to get a compatible compressed file is the next:
+  If you have a folder with maps, a folder with textures, sounds, ...., change where all these folders are and type
+    zip -r descriptive_name.pk3 *
+  Place the new pk3 file in your baseq2/mod folder and that's all
+ 
+ -Some Quake2Max fixes, also, new effects from quake2max v0.45, liquid splash effects, rocket trails, 
+   gun smoke, sparks, ...
+ 
+ -Underwater movement ala quake3 (cl_underwater_movement 0/1) on by default
+ 
+ -Improved Third Person Camera, turning to semi-transparent when the player is near of a wall
+ 
+ -Show name players, name players will be displayed on the screen when the crosshair is looking at it.
+  -cl_draw_names 0/1 , 1 by default
+ 
+ -Crosshair colors:
+  crosshair_red 0-1
+  crosshair_green 0-1
+  crosshair_blue 0-1
+ 
+ -Hud numbers colors:
+  cl_hud_red 0-1
+  cl_hud_green 0-1
+  cl_hud_blue 0-1
+ 
+  Set crosshair_red 0 and crosshair_blue 0 in order to a get a green crosshair, by default all were set to 1, 
+   this is, original color for crosshair. This also aplies to cl_hud_<color>
+   
+ -Font color:
+  -font_color colorX , where colorX is from color1 to color5
+ 
+ -Bobbing items: cl_bobbing 0/1 , on by default
+ 
+ -Improved cvars information displayed when pressing the key tab
+  
+                                      Q2Max specific
+				      
+ -Blaster, Hyperblaster fire colors and bubble effect:
+  
+  cl_blaster_color 1/2/3/4 yellow/green/blue/red
+  cl_blaster_bubble 0/1 , 0 by default, gives a fun bubble effect to the fire particles
+  
+  cl_hyperblaster_particles 0/1 , 1 by default, gives a new effect for the hyperblaster fire
+  cl_hyperblaster_color 1/2/3/4 yellow/green/blue/red
+  cl_hyperblaster_bubble 0/1  , 0 by default.
+ 
+  Note, there is unfinished code for hyperblaster effects, the effect when the hyperblaster 
+   fire impacts on surfaces will have the same color than blaster.  
+  
+ -Explosions effects:
+ 
+  cl_explosion 0 -The effect will be the 3D original one
+  cl_explosion 1 -Original Quake2 Icculus effect, default
+  cl_explosion 2 -Original Quake2 Icculus effect plus sparks, can lower the fps 
+  
+ -Shotguns smoke effect:
+ 
+  cl_gunsmoke 0/1 
+                                     
+				     Q2Max specific end
+				     
+
+   				     Q2Basic specific
+ -Xania Rail Trail;
+   -cl_railtrail       0/1 (0 by default)
+   -cl_railtrail_color 0-4 (blue-2 by default)
+                                     
+				   Q2Basic specific end
+
+ 
+Main changes to the renderer:
+ 
+ -Fixes to the water refraction, now if refraction is not supported by the graphic card, 
+   the game will run with this option disabled, cards supporting this feature must to enable it 
+   by setting gl_reflection_fragment_program to 1 , 0 by default.
+   Set to 1 if your card supports it and restart QuDos, you can see if this fetaure is supported 
+   by searching the string 'GL_ARB_fragment_program' in the QuDos start output, or in game bring down 
+   the console and type gl_strings. 
+   Probably when you set to 1 this option you get a Signal 11 when exiting from QuDos, just ignore it.
+ 
+ -Decals, mark impacts for shotguns
+  gl_decals 0/1 , 1 by default 
+  gl_decals_time to control the time
+ 
+ -Underwater caustics, gl_watercaustics 0/1 , on by default
+  	
+ -Glares 
+   gl_glares 0/1
+   gl_glares_size
+   gl_glares_intens
+ 
+ -Improved Motion Blur, play with gl_motionblur_intensity cvar to see the effects.
+ 
+ -Blooms
+  The bloom effect only works when textures compression are disabled, this is, gl_ext_texture_compression 0
+ 
+Misc
+ 
+ -CPU usage;
+   -cl_sleep 0/1 (default off)
+ 
+ -Ejecting bullets (eject_bullets 0/1) , by default only runs in single player mode, 
+   in order to enable it for deathmatch and/or coop, launch the server with eject_bullets_dm_coop 1
+ 
+ -Flashlight with colors, bind a key for flashlight or set a key in the controls menu options, 
+   the colors are set by console with flashlight_color 1/2/3/4 , in order yellow/red/green/blue. 
+   Disabled in deathmatch mode and under coop mode only works the yellow or if you want to use another different color, 
+   add +set flashlight_color <number> to the cmd line
+ 
+ -Flares/Coronas:
+ 
+  cg_lensflares 0/1
+   
+   This feature is managed by the client and the game itself, 
+   Note what at this time only works with base1 and q2dm1, the light entities must to extracted from the maps, 
+   were included base1 and q2dm1 entities and lits in the data package.
+   
+ -PNG screenshots, bind a key for 'pngshot' i.e (bind F11 pngshot) , F12 key will take a jpeg screenshot by default.
+ 
+ 
+							Version 0.32
+							
+ -Search and load q2glx render by default so can to coexist with other quake2 installation, just drop the binaries in your quake2 dir.
+
+ -Removed software, win32 and some unnecessary files from source tree, customized Makefile, added bots to the source tree (3ZB2 and JABot)
+
+ -Bug fixes in dedicated server and also Acebot (addons bots)
+
+ -Particles and stain maps to basic quake2 (gl_particles/gl_stainmaps), alternative fire blaster shot (alt_fire_blaster).
+
+ -Some other improvements such nvidia extensions, etc ...
+
+ -Ogg Vorbis support (ogg_play file), the .ogg files must to be in baseq2/music, there is no possibility to play a list or something, 
+  so i suggest rip your q2/addons cd's in a single ogg file.  
+
+ 
+							
+							Version 0.31
+							
+ -Fixed bugs and updates in menus
+
+ -Added Mini map (sulq2). Sometimes lose the color and the enemies/players are not displayed
+
+ -Added bloom effects from kmquake2, not is working at all, need a lot of work yet and even if the texture compression 
+  is enabled the game go to 5/6 fps,  use at own risk i'll try to fix it in next releases.
+ 
+ -Added shell effects for players and weapons, enabled by default, requires a map restart for enabling/disabling.
+
+ -New .pak with pics for shells, mini map and a nice conback found some place, save your conback as png if you dont want 
+  the included in the pak.
+
+
+							 Version 0.3
+
+ -Reworked the code adding water shader reflections (requires textures and scripts folder) , no more glGetError. 
+  All changes were done to both engines (quake2 and quake2max) 
+
+ -Added png, jpeg, high resolutions textures support to the basic quake2 binaries
+
+ -*.pak loading
+
+ -No crashes if the QuDos.pak (maxpak.pak) there isn't in the baseq2 dir, simply don't draw the particles.
+
+ -GLX by default, not required "+set vid_ref glx"
+
+ -Reflective water and shader fragment program support water (gl_reflection 0-1) (gl_reflection_shader 0/1)
+
+ -Texture compression (Off by default -- gl_ext_texture_compression)
+
+ -Anisotropic filter
+
+ -Motion Blur (gl_motionblur)
+
+ -Overbright rendering by Vic
+
+ -Texture water pixel shader (on by default)
+
+ -Fog
+
+ -MD3 models
+
+ -Resizable hud scale (cl_hudscale 1-4), keep in mind what menus and console will be scaled too
+
+ -Alpha hud  (cl_hudalpha 0-1)
+
+ -Third Person camera
+
+ -Writting to baseq2 dir and mods dir, not under ~/.quake2 more.
+
+ -See the menus for new options
+
+............
+
+
+######Known issues#########
+
+If you set cl_drawclock to 2 (12/24 format) and also cl_highlight to 3 then, when you try to go to QuDos menu it will crash, i'll try to fix this thing. FIXED 
+
+						
+					
+Files included 
+
+-Binaries
+
+-Patch to convert from quake2-r0.16.2 to QuDos-03 
+
+							 Version 0.21
+							 
+-Ignore the next about not supporting regular quake2
+
+-Ok, i've decided to stop the implementations under q2 basic engine, so the new features will be available ONLY for Q2Max support, i have not too many free time to make two times the same work, sry about this. 
+
+-The next important step is get to fix the 'glGetError' issue, next release? i hope.
+
+-Dont forget, cd where the binaries are and type  "./QuDos +set vid_ref glx"  
+
+Notes for this fixed release
+
+						    !!!!WARNING!!!!
+						    
+						    
+
+-Added a new pak file to the engine called QuDos.pak, this pak file is REQUIRED for play QuDos with mq2max support, is the equivalent for maxpak.pak under the icculus engine,
+ put the QuDos.pak in the baseq2 dir, don't like? ok np, put the maxpak and rename to QuDos.pak or symlink it, the two pak's are compatibles  
+
+-Restructured and added some missed options to the menus
+				
+-Fog showing the sky, thanks Echon
+
+-Fixed menu saving for detailed textures, thanks Echon
+
+-Jpeg screenshot, bring down the console and bind a key for 'jpgshot' , the F12 key will take a .tga shot by default
+
+-That's all
+
+-Enjoy 
+
+-
+						         
+							 Version 0.2
+							 
+							 
+
+-Some options added to the menus, not all were added, but mainly, reflection, detail textures, show some hud options... are in
+
+-Added Semi transparent menu in game (only available for q2max, note what this feature do strange effects in some water surfaces like the water in q2dm1, enable and test it for your self, but requires fixes)
+
+-Controlable gun alpha, brind down the console and type cl_gunalpha <number>, where number is from 0 to 1, 1 is full weap vision and zero is ...
+
+-Net download rate, ping, added to hud and location on the screen are controlable in the menus 
+
+-Detailed textures were set to zero, so for do use of it, go to menus or brind down the console.
+
+-Height console changeable, the command is scr_conheight
+
+-I get an error now with 'glGetError' when the game is loaded, not crashes for now, i think is related with detailed textures
+
+-Binaries compiled against glibc 2.1 and gcc2/gcc3
+
+-Sure i forgot features, cvarlist and/or gl/cl <TAB> can help you
+
+
+
+							 Version 0.1
+
+New features added  for this first release
+
+-Reflective water
+-Water waves
+-Fog
+-Write to ~/.quake2/baseq2/QuDos.cfg
+-Detailed textures
+-Clock 
+-Timestamped messages 
+-Loading more pak files
+-Console commands completion with  Tab key
+-Mouse scroll support in console
+-Selectable to 10 diferents crosshairs for Q2Max in menu options.
+....
+more to come i hope
+
+Ok, have you the files right?
+
+-Create a new folder called QuDos :) , move all files into it
+
+-Make symlinks or paste the pak's into baseq2.
+
+-Run ./QuDosMaX or ./SDLQuDosMaX (of course you can change the binaries names to quake2/sdlquake2) +set vid_ref glx +
+
+-A new QuDos.cfg will be created in your ~/.quake2/baseq2
+
+-Reflective water and water waves are incompatibles, so turn off waves or reflection water for your pleasure
+
+-Type in console gl_refl_alpha 1 for reflective water
+
+-Type r_wave <number> for intensity waves water
+
+-Type gl_detailtextures <number> for detailed textures value (by default is 9, 0 is off, you will win fps turning off the detailed textures)
+
+-Type in console what you want and press the TAB key for a complete list
+
+-Type cl_drawclock 0 if you don't want the clock in the display.
+
+-Enjoy
+
+Credits:
+
+All engine coders NiceAss, Maniac, QSG forums,....
+
+Dukey, Knightmare, Psychospaz, Harven, Barnes, Jitspoe and many many others.
+
+ID software. of course, for the great Quake2 game 
+
+
+

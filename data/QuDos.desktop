@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Quake II
+Exec=QuDos
+Icon=quake2
+Type=Application
+Terminal=false
+Encoding=UTF-8
+Categories=Game;ActionGame;
