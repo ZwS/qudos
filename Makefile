@@ -64,8 +64,8 @@ LIBDIR?=	$(PREFIX)/lib/qudos
 BINDIR?=	$(PREFIX)/games
 
 CC?=		gcc
-#TYPE?=		release
-TYPE?=		debug
+TYPE?=		release
+#TYPE?=		debug
 
 OGG_LDFLAGS=	-lvorbisfile -lvorbis -logg
 
@@ -421,61 +421,61 @@ build: $(DEPEND_TARGETS) $(BUILD_TARGETS)
 install: build
 ifeq ($(strip $(BUILD_QUAKE2)),YES)
 	@printf "Installing client...\n"
-	@install -D -s -m 755 $(BIN_DIR)/$(QuDos_BIN) $(PREFIX)/games/$(QuDos_BIN)
+	@install -D -m 755 $(BIN_DIR)/$(QuDos_BIN) $(PREFIX)/games/$(QuDos_BIN)
 	@install -D -m 644 data/QuDos.desktop $(PREFIX)/share/applications/QuDos.desktop
 	@install -D -m 644 data/quake2.png $(PREFIX)/share/icons/hicolor/128x128/apps/quake2.png
 endif
 ifeq ($(strip $(BUILD_DEDICATED)),YES)
 	@printf "Installing dedicated server...\n"
-	@install -D -s -m 755 $(BIN_DIR)/$(QuDos_ded_BIN) $(PREFIX)/games/$(QuDos_ded_BIN)
+	@install -D -m 755 $(BIN_DIR)/$(QuDos_ded_BIN) $(PREFIX)/games/$(QuDos_ded_BIN)
 endif
 ifeq ($(strip $(BUILD_GLX)),YES)
 	@printf "Installing OpenGL renderer...\n"
-	@install -D -s -m 644 $(BIN_DIR)/$(ref_glx_BIN) $(LIBDIR)/$(ref_glx_BIN)
+	@install -D -m 644 $(BIN_DIR)/$(ref_glx_BIN) $(LIBDIR)/$(ref_glx_BIN)
 endif
 ifeq ($(strip $(BUILD_SDLGL)),YES)
 	@printf "Installing SDL OpenGL renderer...\n"
-	@install -D -s -m 644 $(BIN_DIR)/$(ref_sdlgl_BIN) $(LIBDIR)/$(ref_sdlgl_BIN)
+	@install -D -m 644 $(BIN_DIR)/$(ref_sdlgl_BIN) $(LIBDIR)/$(ref_sdlgl_BIN)
 endif
 ifeq ($(strip $(BUILD_ALSA_SND)),YES)
 	@printf "Installing support for ALSA...\n"
-	@install -D -s -m 644 $(BIN_DIR)/$(snd_alsa_BIN) $(LIBDIR)/$(snd_alsa_BIN)
+	@install -D -m 644 $(BIN_DIR)/$(snd_alsa_BIN) $(LIBDIR)/$(snd_alsa_BIN)
 endif
 ifeq ($(strip $(BUILD_OSS_SND)),YES)
 	@printf "Installing support for OSS sound...\n"
-	@install -D -s -m 644 $(BIN_DIR)/$(snd_oss_BIN) $(LIBDIR)/$(snd_oss_BIN)
+	@install -D -m 644 $(BIN_DIR)/$(snd_oss_BIN) $(LIBDIR)/$(snd_oss_BIN)
 endif
 ifeq ($(strip $(BUILD_SDL_SND)),YES)
 	@printf "Installing support for SDL sound...\n"
-	@install -D -s -m 644 $(BIN_DIR)/$(snd_sdl_BIN) $(LIBDIR)/$(snd_sdl_BIN)
+	@install -D -m 644 $(BIN_DIR)/$(snd_sdl_BIN) $(LIBDIR)/$(snd_sdl_BIN)
 endif
 ifeq ($(strip $(BUILD_GAME)),YES)
 	@printf "Installing original game modification...\n"
-	@install -D -s -m 644 $(BIN_DIR)/baseq2/$(GAME_NAME) $(LIBDIR)/baseq2/$(GAME_NAME)
+	@install -D -m 644 $(BIN_DIR)/baseq2/$(GAME_NAME) $(LIBDIR)/baseq2/$(GAME_NAME)
 endif
 ifeq ($(strip $(BUILD_3ZB2)),YES)
 	@printf "Installing 3zb2 (bots) modification...\n"
-	@install -D -s -m 644 $(BIN_DIR)/3zb2/$(GAME_NAME) $(LIBDIR)/3zb2/$(GAME_NAME)
+	@install -D -m 644 $(BIN_DIR)/3zb2/$(GAME_NAME) $(LIBDIR)/3zb2/$(GAME_NAME)
 endif
 ifeq ($(strip $(BUILD_CTF)),YES)
 	@printf "Installing CTF (Capture The Flag) modification...\n"
-	@install -D -s -m 644 $(BIN_DIR)/ctf/$(GAME_NAME) $(LIBDIR)/ctf/$(GAME_NAME)
+	@install -D -m 644 $(BIN_DIR)/ctf/$(GAME_NAME) $(LIBDIR)/ctf/$(GAME_NAME)
 endif
 ifeq ($(strip $(BUILD_JABOT)),YES)
 	@printf "Installing JABot (bots) modification...\n"
-	@install -D -s -m 644 $(BIN_DIR)/jabot/$(GAME_NAME) $(LIBDIR)/jabot/$(GAME_NAME)
+	@install -D -m 644 $(BIN_DIR)/jabot/$(GAME_NAME) $(LIBDIR)/jabot/$(GAME_NAME)
 endif
 ifeq ($(strip $(BUILD_ROGUE)),YES)
 	@printf "Installing Rogue modification...\n"
-	@install -D -s -m 644 $(BIN_DIR)/rogue/$(GAME_NAME) $(LIBDIR)/rogue/$(GAME_NAME)
+	@install -D -m 644 $(BIN_DIR)/rogue/$(GAME_NAME) $(LIBDIR)/rogue/$(GAME_NAME)
 endif
 ifeq ($(strip $(BUILD_XATRIX)),YES)
 	@printf "Installing Xatrix modification...\n"
-	@install -D -s -m 644 $(BIN_DIR)/xatrix/$(GAME_NAME) $(LIBDIR)/xatrix/$(GAME_NAME)
+	@install -D -m 644 $(BIN_DIR)/xatrix/$(GAME_NAME) $(LIBDIR)/xatrix/$(GAME_NAME)
 endif
 ifeq ($(strip $(BUILD_ZAERO)),YES)
 	@printf "Installing Zaero modification...\n"
-	@install -D -s -m 644 $(BIN_DIR)/zaero/$(GAME_NAME) $(LIBDIR)/zaero/$(GAME_NAME)
+	@install -D -m 644 $(BIN_DIR)/zaero/$(GAME_NAME) $(LIBDIR)/zaero/$(GAME_NAME)
 endif
 ifeq ($(strip $(WITH_QMAX)),YES)
 	@printf "Installing additional graphics...\n"
