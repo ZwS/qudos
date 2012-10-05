@@ -112,13 +112,7 @@ RW_IN_Init(in_state_t * in_state_p)
 	ri.Cmd_AddCommand("force_centerview", Force_CenterView_f);
 
 	mouse_x = mouse_y = 0.0;
-#if DEBUGGING
-	Com_Printf("\x02" "Fullscreen and mouse grab not allowed when running debug mode\n");
-	ri.Cvar_Set("vid_fullscreen", "0");
-	mouse_avail = false;
-#else
 	mouse_avail = true;
-#endif
 
 	RW_IN_PlatformInit();
 

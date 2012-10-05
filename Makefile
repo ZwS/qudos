@@ -65,7 +65,6 @@ BINDIR?=	$(PREFIX)/games
 
 CC?=		gcc
 TYPE?=		release
-#TYPE?=		debug
 
 OGG_LDFLAGS=	-lvorbisfile -lvorbis -logg
 
@@ -104,7 +103,7 @@ CFLAGS+=	-I/usr/include -I$(LOCALBASE)/include \
 WARNS=	-Wshadow -Wpointer-arith -Wcast-align -Waggregate-return -Wstrict-prototypes -Wredundant-decls -Wnested-externs
 
 ifeq ($(TYPE),debug)
-CFLAGS+=	-Wall -g -ggdb -DDEBUGGING $(WARNS)
+CFLAGS+=	-Wall -g -ggdb $(WARNS)
 else
   ifeq ($(TYPE),profile)
 CFLAGS+=	-pg
