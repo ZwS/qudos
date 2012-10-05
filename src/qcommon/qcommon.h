@@ -30,7 +30,7 @@
 #define	BASEDIRNAME	"baseq2"
 
 #define QUDOS_NAME "QuDos"
-#define QUDOS_VERSION "QuDos v0.40.3"
+#define QUDOS_VERSION "QuDos v0.40.3.3"
 
 #if defined __unix__
 
