@@ -20,6 +20,8 @@
 /* r_misc.c */
 
 #include "gl_local.h"
+/* This include needed for compiling with new zlib library */
+#include <zlib.h>
 
 image_t        *r_detailtexture;
 
