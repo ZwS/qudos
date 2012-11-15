@@ -1050,8 +1050,13 @@ SV_Physics_Step(edict_t * ent)
 void
 G_RunEntity(edict_t * ent)
 {
-	if (!ent)
-		return;
+	//PGM
+	trace_t	trace;
+	vec3_t	previous_origin;
+
+	if(ent->movetype == MOVETYPE_STEP)
+		VectorCopy(ent->s.origin, previous_origin);
+	//PGM
 
 	if (ent->prethink)
 		ent->prethink(ent);
@@ -1083,7 +1088,135 @@ G_RunEntity(edict_t * ent)
 		case MOVETYPE_FLYMISSILE:
 			SV_Physics_Toss(ent);
 			break;
+		case MOVETYPE_NEWTOSS:
+			SV_Physics_NewToss (ent);
+			break;
 		default:
 			gi.error("SV_Physics: bad movetype %i", (int)ent->movetype);
 	}
+	
+	//PGM
+	if(ent->movetype == MOVETYPE_STEP)
+	{
+		// if we moved, check and fix origin if needed
+		if (!VectorCompare(ent->s.origin, previous_origin))
+		{
+			trace = gi.trace (ent->s.origin, ent->mins, ent->maxs, previous_origin, ent, MASK_MONSTERSOLID);
+			if(trace.allsolid || trace.startsolid)
+				VectorCopy (previous_origin, ent->s.origin);
+		}
+	}
+	//PGM
 }
+
+//============
+//ROGUE
+/*
+=============
+SV_Physics_NewToss
+
+Toss, bounce, and fly movement. When on ground and no velocity, do nothing. With velocity,
+slide.
+=============
+*/
+void SV_Physics_NewToss (edict_t *ent)
+{
+	trace_t		trace;
+	vec3_t		move;
+	edict_t		*slave;
+	qboolean	wasinwater;
+	qboolean	isinwater;
+	float		speed, newspeed;
+	vec3_t		old_origin;
+
+	// regular thinking
+	SV_RunThink (ent);
+
+	// if not a team captain, so movement will be handled elsewhere
+	if ( ent->flags & FL_TEAMSLAVE)
+		return;
+
+	// find out what we're sitting on.
+	VectorCopy (ent->s.origin, move);
+	move[2] -= 0.25;
+	trace = gi.trace (ent->s.origin, ent->mins, ent->maxs, move, ent, ent->clipmask);
+	if(ent->groundentity && ent->groundentity->inuse)
+		ent->groundentity = trace.ent;
+	else
+		ent->groundentity = NULL;
+
+	// if we're sitting on something flat and have no velocity of our own, return.
+	if (ent->groundentity && (trace.plane.normal[2] == 1.0) && 
+		!ent->velocity[0] && !ent->velocity[1] && !ent->velocity[2])
+	{
+		return;
+	}
+
+	// store the old origin
+	VectorCopy (ent->s.origin, old_origin);
+
+	SV_CheckVelocity (ent);
+
+	// add gravity
+	SV_AddGravity (ent);
+
+	if (ent->avelocity[0] || ent->avelocity[1] || ent->avelocity[2])
+		SV_AddRotationalFriction (ent);
+
+	// add friction
+	speed = VectorLength(ent->velocity);
+	if(ent->waterlevel)				// friction for water movement
+	{
+		newspeed = speed - (sv_waterfriction * 6 * ent->waterlevel);
+		if (newspeed < 0)
+			newspeed = 0;
+		newspeed /= speed;
+		VectorScale (ent->velocity, newspeed, ent->velocity);
+	}
+	else if (!ent->groundentity)	// friction for air movement
+	{
+		newspeed = speed - ((sv_friction));
+		if (newspeed < 0)
+			newspeed = 0;
+		newspeed /= speed;
+		VectorScale (ent->velocity, newspeed, ent->velocity);
+	}
+	else	// use ground friction
+	{
+		newspeed = speed - (sv_friction * 6);
+		if (newspeed < 0)
+			newspeed = 0;
+		newspeed /= speed;
+		VectorScale (ent->velocity, newspeed, ent->velocity);
+	}
+
+	SV_FlyMove (ent, FRAMETIME, ent->clipmask);
+	gi.linkentity (ent);
+
+	G_TouchTriggers (ent);
+
+	// check for water transition
+	wasinwater = (ent->watertype & MASK_WATER);
+	ent->watertype = gi.pointcontents (ent->s.origin);
+	isinwater = ent->watertype & MASK_WATER;
+
+	if (isinwater)
+		ent->waterlevel = 1;
+	else
+		ent->waterlevel = 0;
+
+	if (!wasinwater && isinwater)
+		gi.positioned_sound (old_origin, g_edicts, CHAN_AUTO, gi.soundindex("misc/h2ohit1.wav"), 1, 1, 0);
+	else if (wasinwater && !isinwater)
+		gi.positioned_sound (ent->s.origin, g_edicts, CHAN_AUTO, gi.soundindex("misc/h2ohit1.wav"), 1, 1, 0);
+
+	// move teamslaves
+	for (slave = ent->teamchain; slave; slave = slave->teamchain)
+	{
+		VectorCopy (ent->s.origin, slave->s.origin);
+		gi.linkentity (slave);
+	}
+}
+
+//ROGUE
+//============

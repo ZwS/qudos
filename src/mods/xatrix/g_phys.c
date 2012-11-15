@@ -1081,6 +1081,8 @@ G_RunEntity(edict_t * ent)
 		case MOVETYPE_BOUNCE:
 		case MOVETYPE_FLY:
 		case MOVETYPE_FLYMISSILE:
+		// RAFAEL
+		case MOVETYPE_WALLBOUNCE:
 			SV_Physics_Toss(ent);
 			break;
 		default:
