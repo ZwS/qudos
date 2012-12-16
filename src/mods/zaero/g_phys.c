@@ -1236,8 +1236,9 @@ G_RunEntity(edict_t * ent)
 		case MOVETYPE_TOSS:
 		case MOVETYPE_BOUNCE:
 		case MOVETYPE_FLY:
+		case MOVETYPE_BOUNCEFLY:
 		case MOVETYPE_FLYMISSILE:
-			SV_Physics_Toss(ent);
+			SV_Physics_Toss (ent);
 			break;
 		case MOVETYPE_FALLFLOAT:
 			SV_Physics_FallFloat(ent);
